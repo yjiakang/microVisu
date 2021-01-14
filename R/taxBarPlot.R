@@ -1,12 +1,24 @@
+#' Visualize the amplicon data
+#'
+#' @param otuTab
+#' @param metaData
+#' @param classToPlot
+#' @param topNum
+#'
+#' @return barplot of the microbial composition
+#' @export
+#'
+#' @examples taxBarPlot(otuTab = "otu_table_L2.txt", metaData = "design.txt",
+#'  classToPlot = "status", topNum = 10)
 taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum) {
     # load packages needed
     library("tidyr")
     library("RColorBrewer")
     library("ggplot2")
-    otuTab <- read.delim(otuTab,header = T,sep = "\t") # Import otu table
+    otuTab <- read.delim(otuTab, header = T, sep = "\t") # Import otu table
     otuTab <- as.data.frame(t(t(otuTab)/colSums(otuTab)*100)) # Tranfer to percent
     metaData <- read.table(metaData, header=T, row.names= 1, sep="\t") # Import metadata table
-    idx=intersect(rownames(metaData),colnames(otuTab)) # Find the common samples both in metadata and otu table
+    #idx=intersect(rownames(metaData),colnames(otuTab)) # Find the common samples both in metadata and otu table
     metaData <- metaData[idx,]
     otuTab <- otuTab[,idx]
     samFile <- as.data.frame(metaData[,classToPlot], row.names = row.names(metaData))
@@ -31,3 +43,4 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum) {
         labs(fill="Taxonomy") +
         ylab("Abundance(%)")
 }
+
