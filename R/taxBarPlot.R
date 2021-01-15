@@ -15,9 +15,9 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum) {
     library("tidyr")
     library("RColorBrewer")
     library("ggplot2")
-    otuTab <- read.delim(otuTab, header = T, sep = "\t") # Import otu table
+    otuTab <- read.delim(otuTab, header = TRUE, sep = "\t") # Import otu table
     otuTab <- as.data.frame(t(t(otuTab)/colSums(otuTab)*100)) # Tranfer to percent
-    metaData <- read.table(metaData, header = T, row.names = 1, sep ="\t") # Import metadata table
+    metaData <- read.table(metaData, header = TRUE, row.names = 1, sep ="\t") # Import metadata table
     idx <- intersect(rownames(metaData),colnames(otuTab)) # Find the common samples both in metadata and otu table
     metaData <- metaData[idx,]
     otuTab <- otuTab[,idx]
