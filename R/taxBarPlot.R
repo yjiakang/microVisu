@@ -8,10 +8,8 @@
 #' @return barplot of the microbial composition
 #' @export
 #'
-#' @examples otu_table_L2.txt <- system.file("extdata",
-#' "otu_table_L2.txt", package = "microVisu")
-#' @examples design.txt <- system.file("extdata",
-#' "design.txt", package = "microVisu")
+#' @examples otu_table_L2.txt <- system.file("extdata", "otu_table_L2.txt", package = "microVisu")
+#' @examples design.txt <- system.file("extdata", "design.txt", package = "microVisu")
 #' @examples taxBarPlot(otuTab = otu_table_L2.txt, metaData = design.txt,
 #'  classToPlot = "status", topNum = 10)
 taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum) {
