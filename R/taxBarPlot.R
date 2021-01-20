@@ -1,4 +1,4 @@
-#' Visualize the amplicon data 
+#' Visualize the amplicon data test change
 #'
 #' @param otuTab
 #' @param metaData
