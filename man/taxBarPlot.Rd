@@ -4,7 +4,7 @@
 \alias{taxBarPlot}
 \title{Visualize the amplicon data}
 \usage{
-taxBarPlot(otuTab, metaData, classToPlot, topNum, col)
+taxBarPlot(otuTab, metaData, classToPlot, topNum)
 }
 \arguments{
 \item{topNum}{}
@@ -19,5 +19,5 @@ Visualize the amplicon data
 otu_table_L2.txt <- system.file("extdata", "otu_table_L2.txt", package = "microVisu")
 design.txt <- system.file("extdata", "design.txt", package = "microVisu")
 taxBarPlot(otuTab = otu_table_L2.txt, metaData = design.txt,
- classToPlot = "status", topNum = 10, col = "Set3")
+ classToPlot = "status", topNum = 10)
 }
