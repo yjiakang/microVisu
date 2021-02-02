@@ -12,7 +12,7 @@
 #' @examples design.txt <- system.file("extdata", "design.txt", package = "microVisu")
 #' @examples taxBarPlot(otuTab = otu_table_L2.txt, metaData = design.txt,
 #'  classToPlot = "status", topNum = 10, col = "Set3")
-taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col) {
+taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col = "Set3") {
     # load packages needed
     library("tidyr")
     library("RColorBrewer")
