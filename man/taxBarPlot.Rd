@@ -4,13 +4,21 @@
 \alias{taxBarPlot}
 \title{Visualize the amplicon data}
 \usage{
-taxBarPlot(otuTab, metaData, classToPlot, topNum, col)
+taxBarPlot(otuTab, metaData, classToPlot, topNum, col = "Set3")
 }
 \arguments{
-\item{topNum}{}
+\item{col}{}
 }
 \value{
-barplot of the microbial composition
+otu table
+
+design of your sample
+
+which class you want to plot
+
+top n taxa
+
+colour palette, defult: Set3; Options: Palette from "display.brewer.all()" of the RColorBrewer package
 }
 \description{
 Visualize the amplicon data
