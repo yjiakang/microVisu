@@ -11,7 +11,7 @@
 #' @examples otu_table_L2.txt <- system.file("extdata", "otu_table_L2.txt", package = "microVisu")
 #' @examples design.txt <- system.file("extdata", "design.txt", package = "microVisu")
 #' @examples taxBarPlot(otuTab = otu_table_L2.txt, metaData = design.txt,
-#'  classToPlot = "status", topNum = 10, col = "Paired")
+#'  classToPlot = "status", topNum = 10, col = "Set3")
 taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col) {
     # load packages needed
     library("tidyr")
