@@ -4,9 +4,15 @@
 #' @param metaData
 #' @param classToPlot
 #' @param topNum
+#' @param col 
 #'
-#' @return barplot of the microbial composition
-#' @export
+#' @return otu table
+#' @return design of your sample
+#' @return which class you want to plot
+#' @return top n taxa
+#' @return colour palette, defult: Set3; Options: Palette from "display.brewer.all()" of the RColorBrewer package
+#'
+#' @export 
 #'
 #' @examples otu_table_L2.txt <- system.file("extdata", "otu_table_L2.txt", package = "microVisu")
 #' @examples design.txt <- system.file("extdata", "design.txt", package = "microVisu")
