@@ -7,18 +7,18 @@
 taxBarPlot(otuTab, metaData, classToPlot, topNum, col = "Set3")
 }
 \arguments{
-\item{col}{}
+\item{otuTab}{otu table of your sample}
+
+\item{metaData}{design file}
+
+\item{classToPlot}{which column you want to plot}
+
+\item{topNum}{top n taxa to plot}
+
+\item{col}{colour palette: including all the types of the "display.brewer.all()" in the RColorBrewer package}
 }
 \value{
-otu table
 
-design of your sample
-
-which class you want to plot
-
-top n taxa
-
-colour palette, defult: Set3; Options: Palette from "display.brewer.all()" of the RColorBrewer package
 }
 \description{
 Visualize the amplicon data

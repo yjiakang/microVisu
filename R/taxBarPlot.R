@@ -1,16 +1,11 @@
 #' Visualize the amplicon data
 #'
-#' @param otuTab
-#' @param metaData
-#' @param classToPlot
-#' @param topNum
-#' @param col 
-#'
-#' @return otu table
-#' @return design of your sample
-#' @return which class you want to plot
-#' @return top n taxa
-#' @return colour palette, defult: Set3; Options: Palette from "display.brewer.all()" of the RColorBrewer package
+#' @param otuTab otu table of your sample
+#' @param metaData design file
+#' @param classToPlot which column you want to plot
+#' @param topNum  top n taxa to plot
+#' @param col colour palette: including all the types of the "display.brewer.all()" in the RColorBrewer package
+#' @return
 #'
 #' @export 
 #'
