@@ -38,7 +38,7 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col) {
     #newPalette <- colorRampPalette(brewer.pal(12, col))(topNum)
     ggplot(dataForPlot, aes(x = classToPlot, y = abundance,fill = taxa)) +
         geom_bar(stat = "identity",width = 0.5) +
-        scale_fill_manual(values = col) +
+        scale_fill_manual(palette = col) +
         xlab(NULL) +
         theme(axis.title = element_text(size = 10, face = "bold"),
               axis.text.x = element_text(size = 10, face = "bold"))+
