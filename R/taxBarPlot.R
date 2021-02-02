@@ -11,8 +11,8 @@
 #' @examples otu_table_L2.txt <- system.file("extdata", "otu_table_L2.txt", package = "microVisu")
 #' @examples design.txt <- system.file("extdata", "design.txt", package = "microVisu")
 #' @examples taxBarPlot(otuTab = otu_table_L2.txt, metaData = design.txt,
-#'  classToPlot = "status", topNum = 10)
-taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum) {
+#'  classToPlot = "status", topNum = 10, col = "Paired")
+taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col) {
     # load packages needed
     library("tidyr")
     library("RColorBrewer")
@@ -35,10 +35,10 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum) {
     otuTabMeanFinal <- dplyr::arrange(otuTabMeanFinal, desc(total)) # Sort based on the total counts using the imported pkg
     otuTabMeanFinal <- subset(head(otuTabMeanFinal, n = topNum), select = -total)
     dataForPlot <- otuTabMeanFinal %>% gather(classToPlot, abundance, -taxa) # Change into long data
-    newPalette <- colorRampPalette(brewer.pal(12, "Set3"))(topNum)
+    #newPalette <- colorRampPalette(brewer.pal(12, "Set3"))(topNum)
     ggplot(dataForPlot, aes(x = classToPlot, y = abundance,fill = taxa)) +
         geom_bar(stat = "identity", width = 0.5) +
-        scale_fill_manual(values = newPalette) +
+        scale_fill_brewer(palette = col) +
         xlab(NULL) +
         theme(axis.title = element_text(size = 10, face = "bold"),
               axis.text.x= element_text(size = 10, face = "bold"))+
