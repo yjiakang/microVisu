@@ -16,7 +16,6 @@
 taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col = "Set3") {
     # load packages needed
     library("tidyr")
-    library("RColorBrewer")
     library("ggplot2")
     otuTab <- read.delim(otuTab, header = TRUE, sep = "\t") # Import otu table
     otuTab <- as.data.frame(t(t(otuTab)/colSums(otuTab)*100)) # Tranfer to percent
@@ -36,7 +35,6 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col = "Set3") {
     otuTabMeanFinal <- dplyr::arrange(otuTabMeanFinal, desc(total)) # Sort based on the total counts using the imported pkg
     otuTabMeanFinal <- subset(head(otuTabMeanFinal, n = topNum), select = -total)
     dataForPlot <- otuTabMeanFinal %>% gather(classToPlot, abundance, -taxa) # Change into long data
-    #newPalette <- colorRampPalette(brewer.pal(12, "Set3"))(topNum)
     ggplot(dataForPlot, aes(x = classToPlot, y = abundance,fill = taxa)) +
         geom_bar(stat = "identity", width = 0.5) +
         scale_fill_brewer(palette = col) +
