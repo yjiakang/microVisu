@@ -19,7 +19,7 @@ betaDivPlot <- function(otuTab, metaData, classToPlot, varAxes = FALSE, col = "S
     otuTab <- read.delim(otuTab, header = TRUE, sep = "\t") # Import otu table
     design <- read.table(metaData, header = T, row.names = 1, sep = "\t")
     idx <- intersect(colnames(otuTab), rownames(design))
-    sub_design = design[idx, ]
+    sub_design <- design[idx, ]
     otuTab <- otuTab[, idx]
     otu.pca <- prcomp(t(otuTab), scale. = TRUE)
     groups <- sub_design[,intersect(classToPlot, colnames(sub_design))]
