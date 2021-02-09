@@ -1,12 +1,13 @@
 #' Visualize the amplicon data
 #'
-#' @param otuTab
-#' @param metaData
-#' @param classToPlot
-#' @param topNum
+#' @param otuTab otu table of your sample
+#' @param metaData design file
+#' @param classToPlot which column you want to plot
+#' @param topNum  top n taxa to plot
+#' @param col colour palette: including all the types of the "display.brewer.all()" in the RColorBrewer package
+#' @return
 #'
-#' @return barplot of the microbial composition
-#' @export
+#' @export 
 #'
 #' @examples otu_table_L2.txt <- system.file("extdata", "otu_table_L2.txt", package = "microVisu")
 #' @examples design.txt <- system.file("extdata", "design.txt", package = "microVisu")
@@ -15,7 +16,6 @@
 taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col) {
     # load packages needed
     library("tidyr")
-    library("RColorBrewer")
     library("ggplot2")
     otuTab <- read.delim(otuTab, header = TRUE, sep = "\t") # Import otu table
     otuTab <- as.data.frame(t(t(otuTab)/colSums(otuTab)*100)) # Tranfer to percent
@@ -35,13 +35,12 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col) {
     otuTabMeanFinal <- dplyr::arrange(otuTabMeanFinal, desc(total)) # Sort based on the total counts using the imported pkg
     otuTabMeanFinal <- subset(head(otuTabMeanFinal, n = topNum), select = -total)
     dataForPlot <- otuTabMeanFinal %>% gather(classToPlot, abundance, -taxa) # Change into long data
-    #newPalette <- colorRampPalette(brewer.pal(12, col))(topNum)
     ggplot(dataForPlot, aes(x = classToPlot, y = abundance,fill = taxa)) +
-        geom_bar(stat = "identity",width = 0.5) +
-        scale_fill_manual(values = col) +
+        geom_bar(stat = "identity", width = 0.5) +
+        scale_fill_brewer(palette = col) +
         xlab(NULL) +
         theme(axis.title = element_text(size = 10, face = "bold"),
-              axis.text.x = element_text(size = 10, face = "bold"))+
+              axis.text.x= element_text(size = 10, face = "bold"))+
         labs(fill = "Taxonomy") +
         ylab("Abundance(%)")
 }
