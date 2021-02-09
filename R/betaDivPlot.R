@@ -23,6 +23,6 @@ betaDivPlot <- function(otuTab, metaData, classToPlot, varAxes = FALSE, col = "S
     otuTab <- otuTab[, idx]
     otu.pca <- prcomp(t(otuTab), scale. = TRUE)
     groups <- sub_design[,intersect(classToPlot, colnames(sub_design))]
-    ggbiplot(otu.pca, obs.scale = 1, var.scale = 1,groups = groups, ellipse = TRUE, var.axes = varAxes)+
+    ggbiplot(otu.pca, obs.scale = 1, var.scale = 1, groups = groups, ellipse = TRUE, var.axes = varAxes)+
         scale_color_brewer(palette = col, name = classToPlot)
 }
