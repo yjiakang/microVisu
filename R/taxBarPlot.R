@@ -35,7 +35,7 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col) {
     otuTabMeanFinal <- dplyr::arrange(otuTabMeanFinal, desc(total)) # Sort based on the total counts using the imported pkg
     otuTabMeanFinal <- subset(head(otuTabMeanFinal, n = topNum), select = -total)
     dataForPlot <- otuTabMeanFinal %>% gather(classToPlot, abundance, -taxa) # Change into long data
-    ggplot(dataForPlot, aes(x = classToPlot, y = abundance,fill = taxa)) +
+    ggplot(dataForPlot, aes(x = classToPlot, y = abundance, fill = taxa)) +
         geom_bar(stat = "identity", width = 0.5) +
         scale_fill_brewer(palette = col) +
         xlab(NULL) +
