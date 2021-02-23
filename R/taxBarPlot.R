@@ -37,22 +37,22 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, facetCol = "None", topNum
     dataForPlot <- otuTabMeanFinal %>% gather(classToPlot, abundance, -taxa) # Change into long data
     if (facetCol == "None") {
         ggplot(dataForPlot, aes(x = classToPlot, y = abundance, fill = taxa)) +
-        geom_bar(stat = "identity", width = 0.5) +
-        scale_fill_brewer(palette = col) +
-        xlab(NULL) +
-        theme(axis.title = element_text(size = 10, face = "bold"),
-              axis.text.x= element_text(size = 10, face = "bold"))+
-        labs(fill = "Taxonomy") +
-        ylab("Abundance(%)")
+            geom_bar(stat = "identity", width = 0.5) +
+            scale_fill_brewer(palette = col) +
+            xlab(NULL) +
+            theme(axis.title = element_text(size = 10, face = "bold"),
+                axis.text.x= element_text(size = 10, face = "bold"))+
+            labs(fill = "Taxonomy") +
+            ylab("Abundance(%)")
     } else {
         ggplot(dataForPlot, aes(x = classToPlot, y = abundance, fill = taxa)) +
-        geom_bar(stat = "identity", width = 0.5) +
-        scale_fill_brewer(palette = col) +
-        facet_wrap(as.formula(paste("~", facetCol))) +
-        xlab(NULL) +
-        theme(axis.title = element_text(size = 10, face = "bold"),
-              axis.text.x= element_text(size = 10, face = "bold"))+
-        labs(fill = "Taxonomy") +
-        ylab("Abundance(%)")
+            geom_bar(stat = "identity", width = 0.5) +
+            scale_fill_brewer(palette = col) +
+            facet_wrap(as.formula(paste("~", facetCol))) +
+            xlab(NULL) +
+            theme(axis.title = element_text(size = 10, face = "bold"),
+                axis.text.x= element_text(size = 10, face = "bold"))+
+            labs(fill = "Taxonomy") +
+            ylab("Abundance(%)")
     }
 }
