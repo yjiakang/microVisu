@@ -13,7 +13,7 @@
 #' @examples design.txt <- system.file("extdata", "design.txt", package = "microVisu")
 #' @examples taxBarPlot(otuTab = otu_table_L2.txt, metaData = design.txt,
 #'  classToPlot = "status", topNum = 10, col = "Set3")
-taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col) {
+taxBarPlot  <- function(otuTab, metaData, classToPlot, facetCol = "None", topNum, col) {
     # load packages needed
     library("tidyr")
     library("ggplot2")
@@ -35,7 +35,8 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col) {
     otuTabMeanFinal <- dplyr::arrange(otuTabMeanFinal, desc(total)) # Sort based on the total counts using the imported pkg
     otuTabMeanFinal <- subset(head(otuTabMeanFinal, n = topNum), select = -total)
     dataForPlot <- otuTabMeanFinal %>% gather(classToPlot, abundance, -taxa) # Change into long data
-    ggplot(dataForPlot, aes(x = classToPlot, y = abundance, fill = taxa)) +
+    if (facetCol == "None") {
+        ggplot(dataForPlot, aes(x = classToPlot, y = abundance, fill = taxa)) +
         geom_bar(stat = "identity", width = 0.5) +
         scale_fill_brewer(palette = col) +
         xlab(NULL) +
@@ -43,4 +44,15 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col) {
               axis.text.x= element_text(size = 10, face = "bold"))+
         labs(fill = "Taxonomy") +
         ylab("Abundance(%)")
+    } else {
+        ggplot(dataForPlot, aes(x = classToPlot, y = abundance, fill = taxa)) +
+        geom_bar(stat = "identity", width = 0.5) +
+        scale_fill_brewer(palette = col) +
+        facet_wrap(as.formula(paste("~", facetCol))) +
+        xlab(NULL) +
+        theme(axis.title = element_text(size = 10, face = "bold"),
+              axis.text.x= element_text(size = 10, face = "bold"))+
+        labs(fill = "Taxonomy") +
+        ylab("Abundance(%)")
+    }
 }
