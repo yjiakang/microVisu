@@ -35,6 +35,6 @@ Title
 \examples{
 bray <- system.file("extdata", "bray_curtis_otu_table_css", package = "microVisu")
 design.txt <- system.file("extdata", "design.txt", package = "microVisu")
-PCoAPlot(bray, meta, distType = "Bray Curtis", classForColor = "climate",classForShape = "status",
+pcoaPlot(bray, meta, distType = "Bray Curtis", classForColor = "climate",classForShape = "status",
  col = "Paired")
 }
