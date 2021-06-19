@@ -18,6 +18,8 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col, classToFacet
     library("tidyr")
     library("ggplot2")
     library("reshape2")
+    library("RColorBrewer")
+    library("dplyr")
     # color num in the palette
     if(col %in% (c("Set2", "Pastel2", "Dark2", "Accent"))) {
         ncolor = 8
