@@ -48,7 +48,7 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col, classToFacet
         otuTabMeanFinal <- dplyr::arrange(otuTabMeanFinal, desc(total)) # Sort based on the total counts using the imported pkg
         otuTabMeanFinal <- subset(head(otuTabMeanFinal, n = topNum), select = -total)
         dataForPlot <- otuTabMeanFinal %>% gather(classToPlot, abundance, -taxa) # Change into long data
-        ggplot(dataForPlot, aes(x = classToPlot, y = abundance, fill = taxa)) +
+        ggplot(dataForPlot, aes(x = !!sym(classToPlot), y = abundance, fill = taxa)) +
             geom_bar(stat = "identity", width = 0.5) +
             xlab(NULL) +
             scale_fill_manual(values =  colorRampPalette(brewer.pal(ncolor, col))(topNum)) +
@@ -68,7 +68,7 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col, classToFacet
                                           which(colnames(otuMeta)==classToFacet))],
                            FUN = mean)
         otuLong <- melt(otuGp)
-        ggplot(otuLong, aes(x = classToPlot, y = value, fill = variable)) +
+        ggplot(otuLong, aes(x = !!sym(classToPlot), y = value, fill = variable)) +
             geom_bar(stat = "identity", width = 0.5) +
             xlab(NULL) +
             scale_fill_manual(values =  colorRampPalette(brewer.pal(ncolor, col))(topNum)) +
@@ -78,7 +78,7 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col, classToFacet
             facet_grid(as.formula(paste(".", "~", classToFacet))) + 
             theme_bw() + 
             ylab("Abundance(%)")
-    }
+    }å
     
 }
 
