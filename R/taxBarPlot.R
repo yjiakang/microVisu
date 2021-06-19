@@ -66,7 +66,7 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col, classToFacet
                                           which(colnames(otuMeta)==classToFacet))],
                            FUN = mean)
         otuLong <- melt(otuGp)
-        ggplot(otuLong, aes(x = status, y = value, fill = variable)) +
+        ggplot(otuLong, aes(x = classToPlot, y = value, fill = variable)) +
             geom_bar(stat = "identity", width = 0.5) +
             xlab(NULL) +
             scale_fill_manual(values =  colorRampPalette(brewer.pal(ncolor, col))(topNum)) +
