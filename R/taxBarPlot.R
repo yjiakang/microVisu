@@ -78,7 +78,7 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col, classToFacet
             facet_grid(as.formula(paste(".", "~", classToFacet))) + 
             theme_bw() + 
             ylab("Abundance(%)")
-    }å
+    }
     
 }
 
