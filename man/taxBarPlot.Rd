@@ -16,6 +16,10 @@ taxBarPlot(otuTab, metaData, classToPlot, topNum, col)
 \item{topNum}{top n taxa to plot}
 
 \item{col}{colour palette: including all the types of the "display.brewer.all()" in the RColorBrewer package}
+
+\item{classToFacet}{which class you want for facet, default none}
+
+\item{legCol}{column number of legend, default 2. If text is too long, suggestion is 1}
 }
 \value{
 

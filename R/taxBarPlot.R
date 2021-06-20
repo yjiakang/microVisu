@@ -5,6 +5,8 @@
 #' @param classToPlot which column you want to plot
 #' @param topNum  top n taxa to plot
 #' @param col colour palette: including all the types of the "display.brewer.all()" in the RColorBrewer package
+#' @param classToFacet which class you want for facet, default none
+#' @param legCol column number of legend, default 2. If text is too long, suggestion is 1
 #' @return
 #'
 #' @export 
@@ -13,7 +15,7 @@
 #' @examples design.txt <- system.file("extdata", "design.txt", package = "microVisu")
 #' @examples taxBarPlot(otuTab = otu_table_L2.txt, metaData = design.txt,
 #'  classToPlot = "status", topNum = 10, col = "Set3", classToFacet = "knownseverity")
-taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col, classToFacet = FALSE) {
+taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col, classToFacet = FALSE, legCol = 2) {
     # load packages needed
     library("tidyr")
     library("ggplot2")
@@ -44,26 +46,35 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col, classToFacet
         otuTabMeanFinal <- as.data.frame(lapply(otuTabMeanFinal, as.numeric))
         rownames(otuTabMeanFinal) <- otuRowName
         otuTabMeanFinal$total <- apply(otuTabMeanFinal, 1, sum)
-        otuTabMeanFinal$taxa <- rownames(otuTabMeanFinal)
         otuTabMeanFinal <- dplyr::arrange(otuTabMeanFinal, desc(total)) # Sort based on the total counts using the imported pkg
         otuTabMeanFinal <- subset(head(otuTabMeanFinal, n = topNum), select = -total)
-        dataForPlot <- otuTabMeanFinal %>% gather(classToPlot, abundance, -taxa) # Change into long data
+        otuTabMeanFinal %<>% 
+            t %>% 
+            as.data.frame %>% 
+            mutate(Others = 100 - rowSums(.)) %>% 
+            t %>% 
+            as.data.frame %>% 
+            mutate(taxa = rownames(.))
+        dataForPlot <- otuTabMeanFinal %>% gather(!!sym(classToPlot), abundance, -taxa) # Change into long data
         ggplot(dataForPlot, aes(x = !!sym(classToPlot), y = abundance, fill = taxa)) +
             geom_bar(stat = "identity", width = 0.5) +
             xlab(NULL) +
-            scale_fill_manual(values =  colorRampPalette(brewer.pal(ncolor, col))(topNum)) +
-            theme(axis.title = element_text(size = 10, face = "bold"),
-                  axis.text.x= element_text(size = 10, face = "bold"))+
-            labs(fill = "Taxonomy") +
+            scale_fill_manual(values =  colorRampPalette(brewer.pal(ncolor, col))(topNum+1)) +
             theme_bw() +
+            theme(axis.title = element_text(size = 10, face = "bold"),
+                  axis.text.x = element_text(size = 10, face = "bold"),
+                  legend.position = "bottom") +
+            guides(fill = guide_legend(ncol = legCol)) + 
+            labs(fill = "Taxonomy") +
             ylab("Abundance(%)")
     } else {
         otuTab$sum <- rowSums(otuTab)
         otuTab <- arrange(otuTab, desc(sum))
         otuMeta <- t(subset(head(otuTab, n = topNum), select = -sum)) %>% 
             as.data.frame %>% 
+            mutate(Others = 100 - rowSums(.)) %>% 
             bind_cols(metaData)
-        otuGp <- aggregate(otuMeta[1:topNum], 
+        otuGp <- aggregate(otuMeta[1:(topNum + 1)], 
                            by = otuMeta[c(which(colnames(otuMeta)==classToPlot), 
                                           which(colnames(otuMeta)==classToFacet))],
                            FUN = mean)
@@ -71,12 +82,14 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col, classToFacet
         ggplot(otuLong, aes(x = !!sym(classToPlot), y = value, fill = variable)) +
             geom_bar(stat = "identity", width = 0.5) +
             xlab(NULL) +
-            scale_fill_manual(values =  colorRampPalette(brewer.pal(ncolor, col))(topNum)) +
+            scale_fill_manual(values =  colorRampPalette(brewer.pal(ncolor, col))(topNum + 1)) +
+            theme_bw() + 
             theme(axis.title = element_text(size = 10, face = "bold"),
-                  axis.text.x= element_text(size = 10, face = "bold"))+
+                  axis.text.x= element_text(size = 10, face = "bold"),
+                  legend.position = "bottom")+
+            guides(fill = guide_legend(ncol = legCol)) +
             labs(fill = "Taxonomy") +
             facet_grid(as.formula(paste(".", "~", classToFacet))) + 
-            theme_bw() + 
             ylab("Abundance(%)")
     }
     
