@@ -91,7 +91,6 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col, classToFacet
             labs(fill = "Taxonomy") +
             facet_grid(as.formula(paste(".", "~", classToFacet))) + 
             ylab("Abundance(%)")
-    }
-    
+    }    
 }
 
