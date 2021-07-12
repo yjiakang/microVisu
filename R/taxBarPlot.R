@@ -28,7 +28,7 @@ taxBarPlot  <- function(otuTab, metaData, classToPlot, topNum, col, classToFacet
     } else {
         ncolor = 9
     }
-    otuTab <- read.delim(otuTab, header = TRUE, sep = "\t"， check.names = FALSE) # Import otu table
+    otuTab <- read.delim(otuTab, header = TRUE, sep = "\t", check.names = FALSE) # Import otu table
     otuTab <- as.data.frame(t(t(otuTab)/colSums(otuTab)*100)) # Tranfer to percent
     metaData <- read.table(metaData, header = TRUE, row.names = 1, sep = "\t") # Import metadata table
     idx <- intersect(rownames(metaData),colnames(otuTab)) # Find the common samples both in metadata and otu table
