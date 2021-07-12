@@ -4,7 +4,7 @@
 \alias{taxBarPlot}
 \title{Visualize the amplicon data}
 \usage{
-taxBarPlot(otuTab, metaData, classToPlot, topNum, col)
+taxBarPlot(otuTab, metaData, classToPlot, topNum, col, ...)
 }
 \arguments{
 \item{otuTab}{otu table of your sample}
