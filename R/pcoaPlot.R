@@ -12,7 +12,7 @@
 #' @return
 #' @export
 #'
-#' @examples bray <- system.file("extdata", "bray_curtis_otu_table_css", package = "microVisu")
+#' @examples bray <- system.file("extdata", "bray_curtis_otu_table_css.txt", package = "microVisu")
 #' @examples design.txt <- system.file("extdata", "design.txt", package = "microVisu")
 #' @examples pcoaPlot(distTab = bray, metaData = design.txt, distType = "Bray Curtis", classForColor = "climate",classForShape = "status",
 #'  col = "Paired")
