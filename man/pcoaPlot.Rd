@@ -10,7 +10,8 @@ pcoaPlot(
   distType,
   classForColor,
   classForShape = "None",
-  col = "Set3"
+  ellipse = FALSE,
+  col = "Set3",
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ pcoaPlot(
 \item{classForColor}{color group}
 
 \item{classForShape}{shape group}
+
+\item{ellipse}{add 0.95 ellipse or not | TRUE or FALSE(default)}
 
 \item{col}{colour palette: including all the types of the "display.brewer.all()" in the RColorBrewer package}
 }

@@ -5,7 +5,7 @@
 #' @param distTab distance table: bray curtis, weighted/unweighted unifrac distance table
 #' @param metaData design file
 #' @param distType which kind of distance you use for plot
-#' @param classForColor collor group
+#' @param classForColor color group
 #' @param classForShape shape group
 #' @param ellipse add 0.95 ellipse or not | TRUE or FALSE(default)
 #' @param col colour palette: including all the types of the "display.brewer.all()" in the RColorBrewer package
