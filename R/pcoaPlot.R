@@ -7,6 +7,7 @@
 #' @param distType which kind of distance you use for plot
 #' @param classForColor collor group
 #' @param classForShape shape group
+#' @param ellipse add 0.95 ellipse or not | TRUE or FALSE(default)
 #' @param col colour palette: including all the types of the "display.brewer.all()" in the RColorBrewer package
 #'
 #' @return
@@ -21,6 +22,7 @@ pcoaPlot <- function(distTab,
                      distType,
                      classForColor,
                      classForShape = "None",
+                     ellipse = FALSE
                      col = "Set3") {
     library(vegan)
     library(ggplot2)
@@ -34,22 +36,40 @@ pcoaPlot <- function(distTab,
     colnames(points) <- c("x", "y", "z")
     eig <- pcoa$eig
     points <- cbind(points, sub_design[match(rownames(points), rownames(sub_design)), ])
-    if(classForShape == "None") {
-        ggplot(points, aes(x = x, y = y, color = !!sym(classForColor))) +
-            geom_point(alpha = .7, size = 3) +
-            labs(x = paste("PCoA 1 (", format(100 * eig[1] / sum(eig), digits = 4), "%)", sep = ""),
-                 y = paste("PCoA 2 (", format(100 * eig[2] / sum(eig), digits = 4), "%)", sep = ""),
-                 title = paste(distType, "PCoA")) +
-            stat_ellipse() + 
-            scale_color_brewer(palette = col)
+    if(ellipse == TRUE) {
+        if(classForShape == "None") {
+            ggplot(points, aes(x = x, y = y, color = !!sym(classForColor))) +
+                geom_point(alpha = .7, size = 3) +
+                labs(x = paste("PCoA 1 (", format(100 * eig[1] / sum(eig), digits = 4), "%)", sep = ""),
+                     y = paste("PCoA 2 (", format(100 * eig[2] / sum(eig), digits = 4), "%)", sep = ""),
+                     title = paste(distType, "PCoA")) +
+                stat_ellipse() + 
+                scale_color_brewer(palette = col)
+        } else {
+            ggplot(points, aes(x = x, y = y, color = !!sym(classForColor), shape = !!sym(classForShape))) +
+                geom_point(alpha = .7, size = 3) +
+                labs(x = paste("PCoA 1 (", format(100 * eig[1] / sum(eig), digits = 4), "%)", sep = ""),
+                     y = paste("PCoA 2 (", format(100 * eig[2] / sum(eig), digits = 4), "%)", sep = ""),
+                     title = paste(distType, "PCoA")) +
+                stat_ellipse(aes(lty = !!sym(classForShape))) + 
+                scale_color_brewer(palette = col)
+        }
     } else {
-        ggplot(points, aes(x = x, y = y, color = !!sym(classForColor), shape = !!sym(classForShape))) +
-            geom_point(alpha = .7, size = 3) +
-            labs(x = paste("PCoA 1 (", format(100 * eig[1] / sum(eig), digits = 4), "%)", sep = ""),
-                 y = paste("PCoA 2 (", format(100 * eig[2] / sum(eig), digits = 4), "%)", sep = ""),
-                 title = paste(distType, "PCoA")) +
-            stat_ellipse(aes(lty = !!sym(classForShape))) + 
-            scale_color_brewer(palette = col)
+        if(classForShape == "None") {
+            ggplot(points, aes(x = x, y = y, color = !!sym(classForColor))) +
+                geom_point(alpha = .7, size = 3) +
+                labs(x = paste("PCoA 1 (", format(100 * eig[1] / sum(eig), digits = 4), "%)", sep = ""),
+                     y = paste("PCoA 2 (", format(100 * eig[2] / sum(eig), digits = 4), "%)", sep = ""),
+                     title = paste(distType, "PCoA")) +
+                scale_color_brewer(palette = col)
+        } else {
+            ggplot(points, aes(x = x, y = y, color = !!sym(classForColor), shape = !!sym(classForShape))) +
+                geom_point(alpha = .7, size = 3) +
+                labs(x = paste("PCoA 1 (", format(100 * eig[1] / sum(eig), digits = 4), "%)", sep = ""),
+                     y = paste("PCoA 2 (", format(100 * eig[2] / sum(eig), digits = 4), "%)", sep = ""),
+                     title = paste(distType, "PCoA")) +
+                scale_color_brewer(palette = col)
+        }
     }
 }
 
