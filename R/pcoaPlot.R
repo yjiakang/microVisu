@@ -40,6 +40,7 @@ pcoaPlot <- function(distTab,
             labs(x = paste("PCoA 1 (", format(100 * eig[1] / sum(eig), digits = 4), "%)", sep = ""),
                  y = paste("PCoA 2 (", format(100 * eig[2] / sum(eig), digits = 4), "%)", sep = ""),
                  title = paste(distType, "PCoA")) +
+            stat_ellipse() + 
             scale_color_brewer(palette = col)
     } else {
         ggplot(points, aes(x = x, y = y, color = !!sym(classForColor), shape = !!sym(classForShape))) +
@@ -47,6 +48,7 @@ pcoaPlot <- function(distTab,
             labs(x = paste("PCoA 1 (", format(100 * eig[1] / sum(eig), digits = 4), "%)", sep = ""),
                  y = paste("PCoA 2 (", format(100 * eig[2] / sum(eig), digits = 4), "%)", sep = ""),
                  title = paste(distType, "PCoA")) +
+            stat_ellipse(aes(lty = !!sym(classForShape))) + 
             scale_color_brewer(palette = col)
     }
 }
