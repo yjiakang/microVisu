@@ -22,7 +22,7 @@ pcoaPlot <- function(distTab,
                      distType,
                      classForColor,
                      classForShape = "None",
-                     ellipse = FALSE
+                     ellipse = FALSE,
                      col = "Set3") {
     library(vegan)
     library(ggplot2)
