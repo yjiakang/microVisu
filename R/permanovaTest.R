@@ -25,6 +25,6 @@ permanovaTest <- function(otuTab, metaData, var,
     sub_design <-  design[idx, ]
     otuTab <- otuTab[, idx]
     adonis_result <- vegan::adonis2(as.formula(paste("t(otuTab)", "~", var)), sub_design, method = method, permutations = 999) # Adonis test
-    adonis_result$aov.tab
+    adonis_result
 }
 
