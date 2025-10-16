@@ -24,7 +24,7 @@ permanovaTest <- function(otuTab, metaData, var,
     idx <- intersect(colnames(otuTab), rownames(design)) # Intersect design and otu
     sub_design <-  design[idx, ]
     otuTab <- otuTab[, idx]
-    adonis_result <- vegan::adonis(as.formula(paste("t(otuTab)", "~", var)), sub_design, method = method, permutations = 999) # Adonis test
+    adonis_result <- vegan::adonis2(as.formula(paste("t(otuTab)", "~", var)), sub_design, method = method, permutations = 999) # Adonis test
     adonis_result$aov.tab
 }
 
